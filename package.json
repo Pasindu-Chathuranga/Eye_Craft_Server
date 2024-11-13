@@ -17,5 +17,8 @@
     "eye_craft": "file:",
     "mongoose": "^8.2.3",
     "nodemailer": "^6.9.13"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9"
   }
 }

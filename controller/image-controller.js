@@ -28,7 +28,7 @@ class ImageController {
 
     // Update Image Item
     async updateImageItem(req, res) {
-        const { eye_count, print_style, size, frame, effect, duo_custom_effects, image_url } = req.body;
+        const { eye_count, print_style, size, frame, effect, duo_custom_effects, image_url, price } = req.body;
         const { id } = req.params;
 
         try {
@@ -42,6 +42,7 @@ class ImageController {
             imageItem.effect = effect;
             imageItem.duo_custom_effects = duo_custom_effects;
             imageItem.image_url = image_url;
+            imageItem.price = price
 
             await imageItem.save();
             res.json({ success: true });

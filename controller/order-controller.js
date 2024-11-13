@@ -56,7 +56,7 @@ class OrderController {
 
     // Update Order Item
     async updateOrderItem(req, res) {
-        const { customer_name, customer_email, customer_phone, customer_address, customer_city, eye_count, print_style, size, frame, effect, duo_custom_effects, image_url } = req.body; // Destructure fields from request body
+        const { customer_name, customer_email, customer_phone, customer_address, customer_city, eye_count, print_style, size, frame, effect, duo_custom_effects, image_url,price } = req.body; // Destructure fields from request body
         const { id } = req.params; // Extract id from request parameters
 
         try {
@@ -76,6 +76,7 @@ class OrderController {
             orderItem.customer_phone = customer_phone;
             orderItem.customer_address = customer_address;
             orderItem.customer_city = customer_city;
+            orderItem.price = price;
 
             await orderItem.save(); // Save the updated order item
             res.json({ success: true }); // Respond with success message

@@ -10,7 +10,8 @@ const ImageSchema = new Schema(
         size: { type: String },
         effect: { type: String },
         frame: { type: String },
-        duo_custom_effects: { type: String },       
+        duo_custom_effects: { type: String },
+        price: { type: Number },
     },
     {
         timestamps: true

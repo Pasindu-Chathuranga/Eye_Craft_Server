@@ -16,6 +16,7 @@ const OrderSchema = new Schema(
         size: { type: String },
         effect: { type: String },
         frame: { type: String },
+        price: { type: Number },
         duo_custom_effects: { type: String },    
 
     },

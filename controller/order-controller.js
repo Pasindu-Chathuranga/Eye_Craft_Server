@@ -1,15 +1,15 @@
 const { Order } = require("../model/order-modal");
-const nodemailer = require('nodemailer');
+
 
 class OrderController {
     // Add Order Item
     async addOrderItem(req, res) {
         const orderItem = new Order(req.body);
+        console.log(orderItem)
         try {
-            await orderItem.save();
+            await orderItem.save();   
             res.status(201).json({ success: true });
             console.log('✓ Successfully added order item : ', orderItem);
-            sendEmailToAdmin(orderItem)
         } catch (err) {
             res.status(400).json({ success: false, error: err.message });
             console.log('x Error adding order item : ', err);
@@ -28,35 +28,9 @@ class OrderController {
         }
     }
 
-    async sendEmailToAdmin(orderItem) {
-        // Create a Nodemailer transporter
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_ADDRESS,
-                pass: process.env.EMAIL_PASSWORD
-            }
-        });
-
-        // Setup email data
-        let mailOptions = {
-            from: process.env.EMAIL_ADDRESS,
-            to: orderItem.customer_email,
-            subject: 'Eye Craft  -  Your Order has been added',
-            text: `A new order has been added with the following details:
-            \n${JSON.stringify(orderItem)} 
-            `
-        };
-
-        // Send the email
-        await transporter.sendMail(mailOptions);
-        console.log('✉️ Email sent to admin');
-    }
-
-
     // Update Order Item
     async updateOrderItem(req, res) {
-        const { customer_name, customer_email, customer_phone, customer_address, customer_city, eye_count, print_style, size, frame, effect, duo_custom_effects, image_url,price } = req.body; // Destructure fields from request body
+        const { customer_name, customer_email, customer_phone, customer_address, customer_city, eye_count, print_style, size, frame, effect, duo_custom_effects, image_url, price, order_status } = req.body; // Destructure fields from request body
         const { id } = req.params; // Extract id from request parameters
 
         try {
@@ -77,6 +51,7 @@ class OrderController {
             orderItem.customer_address = customer_address;
             orderItem.customer_city = customer_city;
             orderItem.price = price;
+            orderItem.order_status = order_status;
 
             await orderItem.save(); // Save the updated order item
             res.json({ success: true }); // Respond with success message

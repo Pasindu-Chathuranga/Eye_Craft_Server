@@ -17,8 +17,12 @@
     "eye_craft": "file:",
     "mailersend": "^2.3.0",
     "mongoose": "^8.8.1",
+<<<<<<< HEAD
     "nodemailer": "^6.9.16",
     "pdfkit": "^0.16.0"
+=======
+    "nodemailer": "^6.9.16"
+>>>>>>> 467b91b3fd3e9ab60de953aa37f1630f850b25eb
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.9"

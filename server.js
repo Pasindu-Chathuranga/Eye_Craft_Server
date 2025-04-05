@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const Image = require("./routes/image-route");
 const Order = require("./routes/order-route");
+const Email = require("./routes/email-route");
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,7 @@ mongoose.connection.once("open", () => {
 
 app.use("/eyecraft/api/v0/image", Image);
 app.use("/eyecraft/api/v0/order", Order);
+app.use("/eyecraft/api/v0/mail", Email);
 
 app.listen(PORT, () => {
     console.log('\n ###########################################################');
@@ -39,5 +41,6 @@ app.listen(PORT, () => {
     console.log(` ✓ Server running service URLS`);
     console.log(`    |_ http://localhost:${PORT}/eyecraft/api/v0/image`);
     console.log(`    |_ http://localhost:${PORT}/eyecraft/api/v0/order`);
+    console.log(`    |_ http://localhost:${PORT}/eyecraft/api/v0/mail`);
     
 });

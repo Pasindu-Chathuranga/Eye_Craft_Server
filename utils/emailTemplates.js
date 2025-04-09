@@ -9,9 +9,9 @@ function generateOrderEmail(order, type = 'add', forAdmin = false) {
     }[type];
 
     const themeColor = {
-        add: "#f44336",
-        update: "#f44336",
-        delete: "#f44336"
+        add: "#02032b",
+        update: "#02032b",
+        delete: "#02032b"
     }[type];
 
     return `

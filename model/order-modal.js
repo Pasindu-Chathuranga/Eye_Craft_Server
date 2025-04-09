@@ -8,6 +8,7 @@ const OrderSchema = new Schema(
             Print_Style: { type: String },
             Sizes: { type: String },
             Effects: { type: String },
+            Status: { type: String },
             Frames: { type: String }
         },
         customer: {

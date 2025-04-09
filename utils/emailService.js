@@ -22,7 +22,7 @@ const sendOrderEmail = async (order, type = 'add') => {
     // Send to client
     await transporter.sendMail({
         from: `"Eyecraft" <${process.env.EMAIL_USER}>`,
-        to: order.customerEmail,
+        to: order.customer.email,
         subject,
         html: generateOrderEmail(order, type, false)
     });

@@ -1,48 +1,60 @@
 function generateOrderEmail(order, type = 'add', forAdmin = false) {
     const isClient = !forAdmin;
-    const greeting = isClient ? `Dear ${order.customerName || 'Customer'}` : 'Hello Eyecraft Admin';
+    const greeting = isClient ? `Dear ${order.customer.name || 'Customer'}` : 'Hello Eyecraft Admin';
 
-    const header = {
-        add: isClient ? "Thank you for your order!" : "New order received!",
-        update: isClient ? "Your order has been updated" : "An order has been updated",
-        delete: isClient ? "Your order has been cancelled" : "An order has been deleted"
+    const headerText = {
+        add: isClient ? "Thank you for your order!" : "New Order Received!",
+        update: isClient ? "Your order has been updated" : "An Order Has Been Updated",
+        delete: isClient ? "Your order has been cancelled" : "An Order Has Been Deleted"
     }[type];
 
-    const color = {
+    const themeColor = {
         add: "#19baa2",
         update: "#ffc107",
         delete: "#f44336"
     }[type];
 
     return `
-        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd;">
-            <h2 style="color: ${color}; margin-bottom: 5px;">${header}</h2>
-            <p>${greeting},</p>
-            <p>${{
-            add: "We’ve received your order and it’s being processed.",
-            update: "Your order details have been successfully updated.",
-            delete: "Your order has been successfully removed from our system."
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; padding: 30px;">
+            <div style="max-width: 600px; margin: 0 auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden;">
+                <div style="background-color: ${themeColor}; padding: 20px;">
+                    <h2 style="color: #fff; margin: 0;">${headerText}</h2>
+                </div>
+                <div style="padding: 30px;">
+                    <p style="font-size: 16px;">${greeting},</p>
+                    <p style="font-size: 15px; line-height: 1.6;">${{
+            add: "We’ve received your order and it’s currently being processed. You’ll receive updates once it’s shipped.",
+            update: "Some details of your order have been successfully updated.",
+            delete: "We’re sorry to see your order go. Your cancellation has been confirmed."
         }[type]}</p>
 
-            <hr style="margin: 20px 0;" />
+                    <hr style="margin: 30px 0;" />
 
-            <h3>Order Summary</h3>
-            <p><strong>Order ID:</strong> ${order._id}</p>
-            <p><strong>Name:</strong> ${order.customerName || "N/A"}</p>
-            <p><strong>Email:</strong> ${order.customerEmail || "N/A"}</p>
-            <p><strong>Total:</strong> $${order.total || 0}</p>
+                    <h3 style="color: ${themeColor}; margin-bottom: 10px;">Order Summary</h3>
+                    <p><strong>Order ID:</strong> ${order._id}</p>
+                    <p><strong>Name:</strong> ${order.customer.name || "N/A"}</p>
+                    <p><strong>Email:</strong> ${order.customer.email || "N/A"}</p>
+                    <p><strong>Status:</strong> ${order.order.Status || "N/A"}</p>
+                    <p><strong>Frames:</strong> ${order.order.Frames || "N/A"}</p>
 
-            ${Array.isArray(order.order) ? `
-                <h4 style="margin-top: 15px;">Items:</h4>
-                <ul>
-                    ${order.order.map(item => `<li>${item.name} x ${item.quantity} - $${item.price}</li>`).join('')}
-                </ul>
-                
-            ` : ''}
+                    ${order.order.Eye_Count || order.order.Print_Style || order.order.Sizes || order.order.Effects ? `
+                        <h4 style="margin-top: 20px;">Order Details:</h4>
+                        <ul style="padding-left: 20px; margin: 10px 0;">
+                            ${order.order.Eye_Count ? `<li>Eye Count: ${order.order.Eye_Count}</li>` : ''}
+                            ${order.order.Print_Style ? `<li>Print Style: ${order.order.Print_Style}</li>` : ''}
+                            ${order.order.Sizes ? `<li>Sizes: ${order.order.Sizes}</li>` : ''}
+                            ${order.order.Effects ? `<li>Effects: ${order.order.Effects}</li>` : ''}
+                        </ul>
+                    ` : ''}
 
-            <hr style="margin: 20px 0;" />
-            <p style="font-size: 14px;">If you have any questions, please contact us at <a href="mailto:support@eyecraft.com">support@eyecraft.com</a>.</p>
-            <p style="color: #888; font-size: 12px;">&copy; ${new Date().getFullYear()} Eyecraft. All rights reserved.</p>
+                    <hr style="margin: 30px 0;" />
+
+                    <p style="font-size: 14px;">If you have any questions, reach out to us at 
+                        <a href="mailto:support@eyecraft.com" style="color: ${themeColor}; text-decoration: none;">support@eyecraft.com</a> .
+                    </p>
+                    <p style="color: #aaa; font-size: 12px; margin-top: 20px;">&copy; ${new Date().getFullYear()} Eyecraft. All rights reserved.</p>
+                </div>
+            </div>
         </div>
     `;
 }

@@ -1,4 +1,3 @@
-// controllers/OrderController.js
 const { Order } = require("../model/order-modal");
 const { sendOrderEmail } = require("../utils/emailService");
 
@@ -10,7 +9,7 @@ class OrderController {
             await newOrder.save();
 
             // Send email to customer and admin
-            await sendOrderEmail(newOrder);
+            await sendOrderEmail(newOrder, 'add');
 
             res.status(201).json({ success: true });
             console.log('✓ Successfully added order : ', newOrder);
@@ -43,7 +42,7 @@ class OrderController {
             await order.save();
 
             // Send update email to customer and admin
-            await sendOrderEmail(order, true);
+            await sendOrderEmail(order, 'update');
 
             res.json({ success: true });
             console.log('✓ Successfully updated order : ', order);
@@ -57,8 +56,13 @@ class OrderController {
     async deleteOrder(req, res) {
         const { id } = req.params;
         try {
-            const order = await Order.findByIdAndDelete(id);
+            const order = await Order.findById(id);
             if (!order) return res.status(404).json({ message: 'Order not found' });
+
+            await Order.findByIdAndDelete(id);
+
+            // Send delete email to customer and admin
+            await sendOrderEmail(order, 'delete');
 
             res.json({ success: true });
             console.log('✓ Successfully deleted order : ', id);

@@ -17,6 +17,12 @@ function generateOrderEmail(order, type = 'add', forAdmin = false) {
     return `
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; padding: 30px;">
             <div style="max-width: 600px; margin: 0 auto; background: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden;">
+                
+                <!-- Eyecraft Title -->
+                <div style="background-color: #fff; padding: 20px; text-align: center; border-bottom: 2px solid ${themeColor};">
+                    <h1 style="font-size: 24px; color: ${themeColor}; margin: 0;">Eyecraft</h1>
+                </div>
+
                 <div style="background-color: ${themeColor}; padding: 20px;">
                     <h2 style="color: #fff; margin: 0;">${headerText}</h2>
                 </div>

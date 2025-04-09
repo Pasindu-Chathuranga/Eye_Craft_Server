@@ -24,7 +24,7 @@ class OrderController {
         try {
             const orders = await Order.find();
             res.json(orders);
-            console.log('✓ Successfully retrieved orders : ', orders);
+            console.log('✓ Successfully retrieved orders  ');
         } catch (err) {
             res.status(500).json({ error: err.message });
             console.log('x Error retrieving orders : ', err);

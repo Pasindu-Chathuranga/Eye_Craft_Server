@@ -32,11 +32,12 @@ function generateOrderEmail(order, type = 'add', forAdmin = false) {
             <p><strong>Email:</strong> ${order.customerEmail || "N/A"}</p>
             <p><strong>Total:</strong> $${order.total || 0}</p>
 
-            ${Array.isArray(order.items) ? `
+            ${Array.isArray(order.order) ? `
                 <h4 style="margin-top: 15px;">Items:</h4>
                 <ul>
-                    ${order.items.map(item => `<li>${item.name} x ${item.quantity} - $${item.price}</li>`).join('')}
+                    ${order.order.map(item => `<li>${item.name} x ${item.quantity} - $${item.price}</li>`).join('')}
                 </ul>
+                
             ` : ''}
 
             <hr style="margin: 20px 0;" />
